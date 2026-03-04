@@ -14,10 +14,31 @@ A REST API for credit approval that calculates credit scores, checks eligibility
 docker-compose up --build
 ```
 
-All services (Django web, PostgreSQL, Redis, Celery worker) will start automatically. The application will:
+All services (Django web, PostgreSQL, Redis, Celery worker, and React frontend) will start automatically. The application will:
 1. Run database migrations
 2. Ingest data from Excel files
 3. Start the API server on http://localhost:8000
+4. Start the React frontend on http://localhost:3000
+
+**Access the application**: Open http://localhost:3000 in your browser to use the web interface.
+
+## Frontend
+
+A React 18 + Vite web interface is included for easy interaction with the API:
+
+- **Register customers** - Fill in name, age, income, phone number
+- **Check eligibility** - See if a customer can get a specific loan
+- **Create loans** - Submit loan applications (approved/denied instantly)
+- **View loan details** - Look up specific loans by ID
+- **View customer loans** - See all active loans for a customer
+
+The frontend uses:
+- Plain CSS styling (government/banking theme)
+- Axios for API communication
+- React Router v6 for page navigation
+- Responsive design (mobile, tablet, desktop)
+
+See [frontend/README.md](frontend/README.md) for detailed frontend documentation.
 
 ## API Endpoints
 
