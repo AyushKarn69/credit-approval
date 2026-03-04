@@ -39,16 +39,16 @@ Services start automatically:
 
 
 ### Check Eligibility
-![Check Eligibility Page](docs/check-eligibility.png)
+![Check Eligibility Page](https://github.com/AyushKarn69/credit-approval/blob/main/docs/check-eligibility.png?raw=1)
 
 ### Create Loan
-![Create Loan Page](docs/create-loan.png)
+![Create Loan Page](https://github.com/AyushKarn69/credit-approval/blob/main/docs/create-loan.png?raw=1)
 
 ### View Loan
-![View Loan Page](docs/view-loan.png)
+![View Loan Page](https://github.com/AyushKarn69/credit-approval/blob/main/docs/view-loan.png?raw=1)
 
 ### Customer Loans
-![Customer Loans Page](docs/customer-loans.png)
+![Customer Loans Page](https://github.com/AyushKarn69/credit-approval/blob/main/docs/customer-loans.png?raw=1)
 
 ## Frontend
 
