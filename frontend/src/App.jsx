@@ -5,13 +5,11 @@ import { Navbar, ToastProvider } from './components'
 import { RegisterCustomer } from './pages/RegisterCustomer'
 import { CheckEligibility } from './pages/CheckEligibility'
 import { CreateLoan } from './pages/CreateLoan'
+import { ViewLoan } from './pages/ViewLoan'
+import { ViewCustomerLoans } from './pages/ViewCustomerLoans'
 import './index.css'
 import './animations.css'
 import styles from './App.module.css'
-
-// Placeholder pages (to be created in Phase D)
-const ViewLoan = () => <div>View Loan</div>
-const ViewCustomerLoans = () => <div>My Loans</div>
 
 function App() {
   const [theme, toggleTheme] = useTheme()

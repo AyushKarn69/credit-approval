@@ -1,0 +1,183 @@
+.main {
+  flex: 1;
+  padding: 40px 20px;
+  background-color: var(--bg-base);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.searchRow {
+  display: flex;
+  gap: 12px;
+  margin: 28px 0 40px 0;
+}
+
+.searchInput {
+  flex: 1;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.searchInput::placeholder {
+  color: var(--text-muted);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.searchInput--shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.searchButton {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 100px;
+  transition: all 0.2s ease;
+}
+
+.searchButton:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.searchButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.statValue {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text-muted);
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.emptyText {
+  font-size: 14px;
+  margin: 0;
+}
+
+.errorCard {
+  background-color: var(--danger-bg);
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  color: var(--danger);
+  margin-top: 20px;
+}
+
+.errorCard p {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.errorSubtext {
+  font-size: 12px !important;
+  color: var(--text-secondary) !important;
+  margin-top: 8px !important;
+}
+
+.noLoans {
+  text-align: center;
+  padding: 60px 24px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+}
+
+.noLoansIcon {
+  font-size: 40px;
+  color: var(--success);
+  margin-bottom: 12px;
+}
+
+.noLoans p {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+}
+
+.noLoansSubtext {
+  font-size: 12px !important;
+  color: var(--text-muted) !important;
+  margin-top: 8px !important;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 24px 16px;
+  }
+
+  .searchRow {
+    flex-direction: column;
+  }
+
+  .searchInput,
+  .searchButton {
+    width: 100%;
+  }
+
+  .statsRow {
+    grid-template-columns: 1fr;
+  }
+
+  .emptyState {
+    padding: 60px 16px;
+  }
+}
