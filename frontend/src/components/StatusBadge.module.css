@@ -1,0 +1,38 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  border: 1px solid;
+}
+
+.badge--approved {
+  background-color: var(--success-bg);
+  color: var(--success);
+  border-color: var(--success);
+}
+
+.badge--denied {
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.badge--sm {
+  font-size: 11px;
+  padding: 3px 8px;
+}
+
+.badge--md {
+  font-size: 12px;
+  padding: 4px 12px;
+}
+
+.badge--lg {
+  font-size: 14px;
+  padding: 6px 16px;
+}
