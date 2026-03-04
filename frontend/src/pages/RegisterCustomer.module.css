@@ -1,0 +1,154 @@
+.main {
+  flex: 1;
+  padding: 40px 20px;
+  background-color: var(--bg-base);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 40px;
+  margin-top: 32px;
+  align-items: start;
+}
+
+.panel {
+  background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.panelContent {}
+
+.panelQuote {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: var(--text-primary);
+  margin: 0 0 32px 0;
+  line-height: 1.4;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.featureCheck {
+  color: var(--success);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.formSection {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.note {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 16px 0 24px 0;
+  padding: 12px;
+  background-color: var(--bg-elevated);
+  border-radius: 6px;
+  border-left: 3px solid var(--accent);
+}
+
+.successCard {
+  text-align: center;
+  padding: 32px 0;
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background-color: var(--success-bg);
+  color: var(--success);
+  border: 2px solid var(--success);
+  border-radius: 50%;
+  font-size: 40px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.successTitle {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+}
+
+.customerId {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 32px;
+  letter-spacing: 0.05em;
+}
+
+.successNote {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 24px 0;
+  padding: 12px;
+  background-color: var(--warning-bg);
+  border-radius: 6px;
+  border-left: 3px solid var(--warning);
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 24px 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .panel {
+    display: none;
+  }
+
+  .formSection {
+    padding: 24px;
+  }
+
+  .customerId {
+    font-size: 28px;
+  }
+}
