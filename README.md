@@ -1,248 +1,156 @@
-# Credit Approval System REST API
-# A complete Django+DRF based credit scoring and loan approval system with Celery background workers
+# Credit Approval System
 
-## Project Overview
-A REST API for credit approval that calculates credit scores, checks eligibility, and manages loans using a credit scoring engine. Built with Django, PostgreSQL, Redis, and Celery.
+Django REST API + React frontend for automated credit scoring and loan approval.
 
-## How to Run
+## Quick Start
 
-### Prerequisites
-- Docker and Docker Compose installed
+Prerequisites: Docker and Docker Compose
 
-### Quick Start
 ```bash
 docker-compose up --build
 ```
 
-All services (Django web, PostgreSQL, Redis, Celery worker, and React frontend) will start automatically. The application will:
-1. Run database migrations
-2. Ingest data from Excel files
-3. Start the API server on http://localhost:8000
-4. Start the React frontend on http://localhost:3000
+**Access the app**: http://localhost:3000 (frontend)  
+**API**: http://localhost:8000  
 
-**Access the application**: Open http://localhost:3000 in your browser to use the web interface.
+Services start automatically:
+- ✅ React frontend (port 3000)
+- ✅ Django API (port 8000)
+- ✅ PostgreSQL database
+- ✅ Redis cache
+- ✅ Celery worker
+
+## Features
+
+### 5 Pages
+1. **Register Customer** - Create new customer with auto-calculated credit limit
+2. **Check Eligibility** - Preview loan terms and interest rate adjustments
+3. **Create Loan** - Submit loan application (instant approval/denial)
+4. **View Loan** - Lookup specific loan by ID with customer details
+5. **Customer Loans** - Table of all active loans for a customer
+
+### Credit Scoring
+- Automatic credit score calculated (0-100)
+- Interest rate adjusted based on score
+- Approval/denial based on EMI burden (max 50% of salary)
+- All data pre-loaded: 300 customers + 753 loans
+
+## Frontend Screenshots
+
+
+### Check Eligibility
+![Check Eligibility Page](docs/check-eligibility.png)
+
+### Create Loan
+![Create Loan Page](docs/create-loan.png)
+
+### View Loan
+![View Loan Page](docs/view-loan.png)
+
+### Customer Loans
+![Customer Loans Page](docs/customer-loans.png)
 
 ## Frontend
 
-A React 18 + Vite web interface is included for easy interaction with the API:
-
-- **Register customers** - Fill in name, age, income, phone number
-- **Check eligibility** - See if a customer can get a specific loan
-- **Create loans** - Submit loan applications (approved/denied instantly)
-- **View loan details** - Look up specific loans by ID
-- **View customer loans** - See all active loans for a customer
-
-The frontend uses:
+React 18 + Vite web UI:
 - Plain CSS styling (government/banking theme)
-- Axios for API communication
-- React Router v6 for page navigation
 - Responsive design (mobile, tablet, desktop)
+- Client-side form validation
+- Indian rupee formatting
+- No animations, no gradients (clean, professional)
 
-See [frontend/README.md](frontend/README.md) for detailed frontend documentation.
+See [frontend/README.md](frontend/README.md) for detailed docs.
 
 ## API Endpoints
 
 ### 1. Register Customer
-**POST /register**
-
-Request:
-```json
-{
-  "first_name": "John",
-  "last_name": "Doe",
-  "age": 30,
-  "monthly_income": 50000,
-  "phone_number": 9999999999
-}
+```
+POST /register
+Body: { first_name, last_name, age, monthly_income, phone_number }
 ```
 
-Response (201):
-```json
-{
-  "customer_id": 1,
-  "name": "John Doe",
-  "age": 30,
-  "monthly_income": 50000,
-  "approved_limit": 1800000,
-  "phone_number": 9999999999
-}
+### 2. Check Eligibility
 ```
-
-### 2. Check Loan Eligibility
-**POST /check-eligibility**
-
-Request:
-```json
-{
-  "customer_id": 1,
-  "loan_amount": 100000,
-  "interest_rate": 10,
-  "tenure": 12
-}
-```
-
-Response (200):
-```json
-{
-  "customer_id": 1,
-  "approval": true,
-  "interest_rate": 10,
-  "corrected_interest_rate": 10,
-  "tenure": 12,
-  "monthly_installment": 8792.00
-}
+POST /check-eligibility
+Body: { customer_id, loan_amount, interest_rate, tenure }
 ```
 
 ### 3. Create Loan
-**POST /create-loan**
-
-Request:
-```json
-{
-  "customer_id": 1,
-  "loan_amount": 100000,
-  "interest_rate": 10,
-  "tenure": 12
-}
+```
+POST /create-loan
+Body: { customer_id, loan_amount, interest_rate, tenure }
 ```
 
-Response when approved (201):
-```json
-{
-  "loan_id": 1,
-  "customer_id": 1,
-  "loan_approved": true,
-  "message": "",
-  "monthly_installment": 8792.00
-}
+### 4. View Loan
+```
+GET /view-loan/<loan_id>
 ```
 
-Response when denied (200):
-```json
-{
-  "loan_id": null,
-  "customer_id": 1,
-  "loan_approved": false,
-  "message": "EMI burden exceeds 50% of monthly salary",
-  "monthly_installment": 8792.00
-}
+### 5. View Customer Loans
+```
+GET /view-loans/<customer_id>
 ```
 
-### 4. View Specific Loan
-**GET /view-loan/<loan_id>**
+## Tech Stack
 
-Response (200):
-```json
-{
-  "loan_id": 1,
-  "customer": {
-    "id": 1,
-    "first_name": "John",
-    "last_name": "Doe",
-    "phone_number": 9999999999,
-    "age": 30
-  },
-  "loan_amount": 100000,
-  "interest_rate": 10,
-  "monthly_repayment": 8792.00,
-  "tenure": 12
-}
-```
+**Backend:** Django 4.2, PostgreSQL 15, Redis 7, Celery, Gunicorn
 
-### 5. View Customer Active Loans
-**GET /view-loans/<customer_id>**
+**Frontend:** React 18, Vite, React Router v6, Axios, Plain CSS
 
-Response (200):
-```json
-[
-  {
-    "loan_id": 1,
-    "loan_amount": 100000,
-    "interest_rate": 10,
-    "monthly_repayment": 8792.00,
-    "repayments_left": 10
-  }
-]
-```
+**Infrastructure:** Docker & Docker Compose, Automated Excel import
 
-## Environment Variables
+## Credit Scoring
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| DJANGO_SECRET_KEY | Django secret key | dev-key |
-| DJANGO_DEBUG | Debug mode | True |
-| DJANGO_SETTINGS_MODULE | Settings module | config.settings.development |
-| DB_NAME | PostgreSQL database name | credit_db |
-| DB_USER | PostgreSQL user | credit_user |
-| DB_PASSWORD | PostgreSQL password | credit_pass |
-| DB_HOST | PostgreSQL host | db |
-| DB_PORT | PostgreSQL port | 5432 |
-| REDIS_URL | Redis connection URL | redis://redis:6379/0 |
+| Factor | Points |
+|--------|--------|
+| On-time EMI | 35 |
+| Loan experience | 20 |
+| Recent activity | 20 |
+| Loan volume | 25 |
 
-## Running Tests
+Interest rate: Adjusted based on score (Score ≤ 10 = Denied)
+
+## Quick Commands
+
 ```bash
-docker-compose exec web pytest
+docker-compose logs web              # View backend logs
+docker-compose logs frontend         # View frontend logs
+docker-compose exec db psql -U credit_user -d credit_db  # Database
+docker-compose exec web pytest       # Run tests
+docker-compose down                  # Stop all services
 ```
 
 ## Project Structure
-- `config/` - Django settings and configuration
-- `apps/customers/` - Customer registration and management
-- `apps/loans/` - Loan creation and management with credit engine
-- `apps/ingestion/` - Excel data ingestion via Celery
-- `apps/common/` - Shared utilities and exception handling
-- `data/` - Excel files for data ingestion
 
-## Credit Scoring Logic
-- **On-time EMI payments**: 35 points
-- **Loan experience**: 20 points
-- **Recent loan activity**: 20 points
-- **Loan volume vs approved limit**: 25 points
-- **Total score**: 0-100
-
-Interest rate adjustment based on credit score:
-- Score > 50: Original rate
-- Score 30-50: Minimum 12%
-- Score 10-30: Minimum 16%
-- Score ≤ 10: Loan denied
-
-## Quick Reference Commands
-
-### Docker Commands
-```bash
-docker compose up --build              # Start all services
-docker compose down                    # Stop all services
-docker compose logs web                # View web server logs
-docker compose logs celery             # View worker logs
-docker compose exec web bash           # Open container shell
+```
+alemeno/
+├── frontend/          # React 18 + Vite UI
+├── apps/              # Django apps (customers, loans, ingestion, common)
+├── config/            # Django settings
+├── data/              # Excel files (pre-loaded)
+└── docker-compose.yml # Services config
 ```
 
-### Django Commands
-```bash
-docker compose exec web python manage.py migrate           # Run migrations
-docker compose exec web python manage.py makemigrations   # Create migrations
-docker compose exec web python manage.py shell            # Django shell
-docker compose exec web python manage.py createsuperuser  # Create admin
+## Environment Setup
+
+`.env` file:
+```
+DB_NAME=credit_db
+DB_USER=credit_user
+DB_PASSWORD=credit_pass
+DB_HOST=db
+DB_PORT=5432
+REDIS_URL=redis://redis:6379/0
 ```
 
-### Testing
-```bash
-docker compose exec web pytest                    # Run all tests
-docker compose exec web pytest apps/loans/tests.py        # Run specific test
-docker compose exec web pytest -v                 # Verbose output
-docker compose exec web pytest --cov=apps         # Coverage report
-```
+## Notes
 
-### Database
-```bash
-docker compose exec db psql -U credit_user -d credit_db   # PostgreSQL CLI
-\dt                                    # List tables
-\d app_customers_customer              # Describe table
-SELECT COUNT(*) FROM app_customers_customer;  # Count records
-```
+- **CORS enabled** for frontend-backend communication
+- **Auto-migrations** on startup
+- **Pre-loaded data**: 300 customers, 753 loans
+- **Credit limit** = 36 × monthly_income / 100,000 × 100,000
+- **Approval** = EMI ≤ 50% of monthly salary
 
-### Clean Up
-```bash
-docker compose down -v                 # Remove volumes too
-docker system prune -a                 # Clean all docker resources
-docker volume prune                    # Remove unused volumes
-```
+## Support
+
+Detailed frontend docs: [frontend/README.md](frontend/README.md)
